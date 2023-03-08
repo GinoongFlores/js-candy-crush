@@ -1,6 +1,6 @@
 const candies = ["Blue", "Orange", "Green", "Yellow", "Red", "Purple"];
 const board = [];
-const row = 9;
+const rows = 9;
 const columns = 9;
 let score = 0;
 
@@ -9,6 +9,12 @@ let otherTile;
 
 window.onload = function () {
     startGame();
+
+    window.setInterval(function () {
+        crushCandy(); // crush candies in 3 x 3 move 
+        slideCandy(); // slide candies down
+        generateCandy(); // generate new candies
+    }, 100)
 }
 
 function randomCandy() {
@@ -17,7 +23,7 @@ function randomCandy() {
 
 function startGame() {
     // 2d Array of 9x9 
-    for (let r = 0; r < row; r++) {
+    for (let r = 0; r < rows; r++) {
         let row = [];
         for (let c = 0; c < columns; c++) {
             // <img id="0-0" src="./images/image.png"> 
@@ -66,8 +72,12 @@ function dragDrop() {
 
 // this function is where we do the swapping of candies 
 function dragEnd() {
-    // here we swap the images sources of the two tiles (currentTile & otherTile)
+    // check if the tile is blank or not to prevent swapping with blank tiles
+    if (currentTile.src.includes("blank") || otherTile.src.includes("blank")) {
+        return;
+    }
 
+    // here we swap the images sources of the two tiles (currentTile & otherTile)
     // split the id of the tile to get the row and column
     let currentCoordinates = currentTile.id.split("-"); // id="0-0" => ["0", "0"] as we split the split the "-" on the array
     let currentRow = parseInt(currentCoordinates[0]);
@@ -84,11 +94,122 @@ function dragEnd() {
     let moveUp = otherRow == currentRow - 1 && currentColumn == otherColumn;
     let moveDown = otherRow == currentRow + 1 && currentColumn == otherColumn;
 
-    // the src is the image of the candy from the tile that is being clicked or dragged 
-    let currentImg = currentTile.src;
-    let otherImg = otherTile.src;
+    let isAdjacent = moveLeft || moveRight || moveUp || moveDown;
+    if (isAdjacent) {
+        // the src is the image of the candy from the tile that is being clicked or dragged 
+        let currentImg = currentTile.src;
+        let otherImg = otherTile.src;
 
-    // here we swap the current candy by its image source to other candy depending on which candy is being dropped on
-    currentTile.src = otherImg;
-    otherTile.src = currentImg;
+        // here we swap the current candy by its image source to other candy depending on which candy is being dropped on
+        currentTile.src = otherImg;
+        otherTile.src = currentImg;
+
+        // check to crush candies in 3 x 3 move
+        let validMove = checkValid();
+        if (!validMove) {
+            let currentImg = currentTile.src;
+            let otherImg = otherTile.src;
+            currentTile.src = otherImg;
+            otherTile.src = currentImg;
+        }
+    }
+
+}
+
+function crushCandy() {
+    //crushFive()
+    //crushFour()
+
+    crushThree();
+    document.getElementById("score").innerText = score;
+}
+
+function crushThree() {
+    // check rows
+    for (let r = 0; r < rows; r++) {
+        for (let c = 0; c < columns - 2; c++) {
+            let candy1 = board[r][c];
+            let candy2 = board[r][c + 1];
+            let candy3 = board[r][c + 2];
+
+            if (candy1.src === candy2.src && candy2.src === candy3.src && !candy1.src.includes("blank")) {
+                candy1.src = "./images/blank.png"
+                candy2.src = "./images/blank.png"
+                candy3.src = "./images/blank.png"
+                score += 3;
+            }
+        }
+    }
+
+    // check columns
+    for (let c = 0; c < columns; c++) {
+        for (let r = 0; r < rows - 2; r++) {
+            let candy1 = board[r][c];
+            let candy2 = board[r + 1][c];
+            let candy3 = board[r + 2][c];
+
+            if (candy1.src === candy2.src && candy2.src === candy3.src && !candy1.src.includes("blank")) {
+                candy1.src = "./images/blank.png"
+                candy2.src = "./images/blank.png"
+                candy3.src = "./images/blank.png"
+                score += 3;
+            }
+        }
+    }
+
+}
+
+function checkValid() {
+    // check rows
+    for (let r = 0; r < rows; r++) {
+        for (let c = 0; c < columns - 2; c++) {
+            let candy1 = board[r][c];
+            let candy2 = board[r][c + 1];
+            let candy3 = board[r][c + 2];
+
+            if (candy1.src === candy2.src && candy2.src === candy3.src && !candy1.src.includes("blank")) {
+                return true; // return true to remain the candies in the board 
+            }
+        }
+    }
+
+    // check columns
+    for (let c = 0; c < columns; c++) {
+        for (let r = 0; r < rows - 2; r++) {
+            let candy1 = board[r][c];
+            let candy2 = board[r + 1][c];
+            let candy3 = board[r + 2][c];
+
+            if (candy1.src === candy2.src && candy2.src === candy3.src && !candy1.src.includes("blank")) {
+                return true;
+            }
+        }
+    }
+
+    return false; // return false if we didn't find any valid combination 
+}
+
+function slideCandy() {
+    for (let c = 0; c < columns; c++) {
+        let index = rows - 1; // start from the bottom row    
+        for (let r = columns - 1; r >= 0; r--) { // moves up 
+            if (!board[r][c].src.includes("blank")) { // check if the candy is not blank
+                board[index][c].src = board[r][c].src; // set the current blank tile to the candy that is not blank
+                // index--;
+                index -= 1; // move the blank tile up by 1
+            }
+        }
+
+        for (let r = index; r >= 0; r--) {
+            board[r][c].src = "./images/blank.png"; // set the current blank tile to blank image for the rest of the tiles
+        }
+    }
+}
+
+function generateCandy() {
+    for (let c = 0; c < columns; c++) {
+        if (board[0][c].src.includes("blank")) { // check if the row is blank to generate a new candy 
+            board[0][c].src = "./images/" + randomCandy() + ".png";
+        }
+    }
 }
