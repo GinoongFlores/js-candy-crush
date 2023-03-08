@@ -19,6 +19,10 @@ body {
 	flex-wrap: wrap;
 }
 
+h1 {
+	color: cadetblue;
+}
+
 #board img {
 	/* each pieces is 50 by 50 as we have 9 by 9 grid and has a board of 450 by 450. So, 450 x 9 = 50 of each width & height of every pieces */
 	width: 50px;
