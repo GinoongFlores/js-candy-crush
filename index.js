@@ -19,7 +19,7 @@ window.onload = function () {
         crushCandy(); // crush candies in 3 x 3 move 
         slideCandy(); // slide candies down
         generateCandy(); // generate new candies
-        highestScore(); // check if the score is 100
+        highestScore(); // display the highest score
     }, 100)
 }
 
