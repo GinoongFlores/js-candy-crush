@@ -6,9 +6,14 @@ let score = 0;
 
 let currentTile;
 let otherTile;
+const audioElement = new Audio("./audio/candy-crush-sound-effect.mp3");
+
+audioElement.loop = true;
+audioElement.volume = 0.3;
 
 window.onload = function () {
     startGame();
+    audioElement.play();
 
     window.setInterval(function () {
         crushCandy(); // crush candies in 3 x 3 move 
@@ -50,6 +55,7 @@ function startGame() {
 function dragStart() {
     // this refers to the tile is being clicked or dragged
     currentTile = this;
+    audioElement.pause();
 }
 
 // e.preventDefault() is a function that allows us to drop the candy
@@ -62,7 +68,8 @@ function dragEnter(e) {
 }
 
 function dragLeave() {
-
+    // this refers to the tile is being dropped on
+    otherTile = this;
 }
 
 function dragDrop() {
@@ -153,6 +160,7 @@ function crushThree() {
                 candy2.src = "./images/blank.png"
                 candy3.src = "./images/blank.png"
                 score += 3;
+                audioElement.play();
             }
         }
     }
