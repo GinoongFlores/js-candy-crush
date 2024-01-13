@@ -19,6 +19,7 @@ window.onload = function () {
         crushCandy(); // crush candies in 3 x 3 move 
         slideCandy(); // slide candies down
         generateCandy(); // generate new candies
+        highestScore(); // check if the score is 100
     }, 100)
 }
 
@@ -144,6 +145,7 @@ function crushThree() {
                 candy2.src = "./images/blank.png"
                 candy3.src = "./images/blank.png"
                 score += 3;
+                audioElement.play();
             }
         }
     }
@@ -164,7 +166,17 @@ function crushThree() {
             }
         }
     }
+}
 
+function highestScore() {
+    let highestScore = localStorage.getItem("highestScore")
+
+    if (highestScore === null || score > highestScore) {
+        highestScore = score;
+        localStorage.setItem("highestScore", highestScore)
+    }
+    // Display the highest score
+    document.getElementById("highestScore").innerText = highestScore;
 }
 
 function checkValid() {
