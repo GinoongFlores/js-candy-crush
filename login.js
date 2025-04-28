@@ -3,6 +3,9 @@ import {
   auth,
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
+  googleProvider,
+  signInWithPopup,
+  initializeUserData,
 } from "./firebase-config.js";
 
 // Helper function to show error messages
@@ -42,6 +45,20 @@ window.login = async function () {
   }
 };
 
+// Handle Google Sign In
+window.signInWithGoogle = async function () {
+  try {
+    const result = await signInWithPopup(auth, googleProvider);
+    const user = result.user;
+
+    // Initialize user data using shared function
+    await initializeUserData(user);
+    window.location.href = "index.html";
+  } catch (error) {
+    showMessage("loginError", error.message);
+  }
+};
+
 // Handle user registration
 window.register = async function () {
   const email = document.getElementById("registerEmail").value;
@@ -65,8 +82,9 @@ window.register = async function () {
     registerButton.disabled = true;
     registerButton.textContent = "Creating Account...";
 
-    // Create account with Firebase
-    await createUserWithEmailAndPassword(auth, email, password);
+    const result = await createUserWithEmailAndPassword(auth, email, password);
+    await initializeUserData(result.user);
+
     showMessage(
       "registerSuccess",
       "Registration successful! Redirecting...",
