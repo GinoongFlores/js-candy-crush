@@ -41,6 +41,16 @@
 
       <!-- Login Form -->
       <div id="loginForm" style="display: block">
+        <button type="button" class="google-btn" onclick="signInWithGoogle()">
+          <img
+            src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg"
+            alt="Google logo"
+          />
+          Sign in with Google
+        </button>
+        <div class="divider">
+          <span>or</span>
+        </div>
         <div id="loginError" class="error-message"></div>
         <form onsubmit="return false;">
           <div class="form-group">
@@ -73,6 +83,16 @@
 
       <!-- Registration Form -->
       <div id="registerForm" style="display: none">
+        <button type="button" class="google-btn" onclick="signInWithGoogle()">
+          <img
+            src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg"
+            alt="Google logo"
+          />
+          Sign in with Google
+        </button>
+        <div class="divider">
+          <span>or</span>
+        </div>
         <div id="registerError" class="error-message"></div>
         <div id="registerSuccess" class="success-message"></div>
         <form onsubmit="return false;">
