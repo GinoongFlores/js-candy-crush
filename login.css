@@ -1,0 +1,235 @@
+.auth-container {
+  background: rgba(255, 255, 255, 0.95);
+  padding: 2.5rem;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  max-width: 450px;
+  margin: 2rem auto;
+  position: relative;
+  overflow: hidden;
+  border: 3px solid #e74c3c;
+}
+
+.candy-decoration {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  opacity: 0.8;
+  pointer-events: none;
+  animation: float 3s ease-in-out infinite;
+}
+
+.candy-1 {
+  top: -20px;
+  left: -20px;
+  transform: rotate(-45deg);
+}
+.candy-2 {
+  top: -20px;
+  right: -20px;
+  transform: rotate(45deg);
+}
+.candy-3 {
+  bottom: -20px;
+  left: -20px;
+  transform: rotate(-135deg);
+}
+.candy-4 {
+  bottom: -20px;
+  right: -20px;
+  transform: rotate(135deg);
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0) rotate(var(--rotation));
+  }
+  50% {
+    transform: translateY(-10px) rotate(var(--rotation));
+  }
+}
+
+.auth-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.auth-header h1 {
+  font-size: 2.5rem;
+  background: linear-gradient(45deg, #e74c3c, #c0392b);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  margin-bottom: 0.5rem;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+  position: relative;
+  padding: 0 1rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: #2c3e50;
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-align: left;
+}
+
+.form-group input {
+  width: calc(100% - 2rem);
+  padding: 0.8rem 1rem;
+  border: 2px solid #e1e8ed;
+  border-radius: 10px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  background: rgba(255, 255, 255, 0.9);
+  margin: 0 auto;
+  display: block;
+}
+
+.form-group input:focus {
+  border-color: #e74c3c;
+  box-shadow: 0 0 0 3px rgba(231, 76, 60, 0.1);
+  outline: none;
+}
+
+.btn {
+  background: linear-gradient(45deg, #e74c3c, #c0392b);
+  color: white;
+  border: none;
+  padding: 1rem 2rem;
+  border-radius: 25px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 600;
+  width: calc(100% - 2rem);
+  margin: 0 auto;
+  display: block;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.btn::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    120deg,
+    transparent,
+    rgba(255, 255, 255, 0.3),
+    transparent
+  );
+  transition: 0.5s;
+}
+
+.btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(231, 76, 60, 0.3);
+}
+
+.btn:hover:not(:disabled)::before {
+  left: 100%;
+}
+
+.btn:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.error-message,
+.success-message {
+  padding: 0.8rem 1rem;
+  border-radius: 8px;
+  margin-top: 1rem;
+  font-size: 0.9rem;
+  display: none;
+}
+
+.error-message {
+  color: #e74c3c;
+  background: rgba(231, 76, 60, 0.1);
+}
+
+.success-message {
+  color: #27ae60;
+  background: rgba(39, 174, 96, 0.1);
+}
+
+.error-message.visible,
+.success-message.visible {
+  display: block;
+  animation: slideIn 0.3s ease;
+}
+
+.form-toggle {
+  margin-top: 1.5rem;
+  text-align: center;
+  color: #2c3e50;
+  font-size: 0.9rem;
+}
+
+.form-toggle span {
+  cursor: pointer;
+  color: #e74c3c;
+  font-weight: 600;
+  text-decoration: none;
+  position: relative;
+}
+
+.form-toggle span::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  bottom: -2px;
+  left: 0;
+  background: #e74c3c;
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+}
+
+.form-toggle span:hover::after {
+  transform: scaleX(1);
+}
+
+.password-requirements {
+  font-size: 0.8rem;
+  color: #7f8c8d;
+  margin-top: 0.5rem;
+  padding-left: 0;
+  text-align: left;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 480px) {
+  .auth-container {
+    margin: 1rem;
+    padding: 1.5rem;
+  }
+
+  .auth-header h1 {
+    font-size: 2rem;
+  }
+}
