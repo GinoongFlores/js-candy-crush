@@ -6,6 +6,7 @@ import {
   updateDoc,
   getDoc,
   signOut,
+  initializeUserData,
 } from "./firebase-config.js";
 
 const candies = ["Blue", "Orange", "Green", "Yellow", "Red", "Purple"];
@@ -29,16 +30,9 @@ window.onload = async function () {
       return;
     }
 
-    // Initialize user's score document if it doesn't exist
-    const userRef = doc(db, "users", user.uid);
-    const userDoc = await getDoc(userRef);
-
-    if (!userDoc.exists()) {
-      await setDoc(userRef, {
-        email: user.email,
-        highestScore: 0,
-      });
-    }
+    // Initialize user data using shared function
+    const userDoc = await initializeUserData(user);
+    console.log("User data initialized in game:", userDoc.data());
 
     startGame();
 
