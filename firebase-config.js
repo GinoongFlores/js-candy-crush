@@ -51,13 +51,13 @@ async function initializeUserData(user) {
   const userDoc = await getDoc(userRef);
 
   if (!userDoc.exists()) {
-    console.log("Creating new user document");
+    // console.log("Creating new user document");
     await setDoc(userRef, {
       email: user.email,
       highestScore: 0,
     });
   } else {
-    console.log("User document exists:", userDoc.data());
+    // console.log("User document exists:", userDoc.data());
   }
   return userDoc;
 }
