@@ -6,6 +6,8 @@ import {
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
   signOut,
+  GoogleAuthProvider,
+  signInWithPopup,
 } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
 import {
   getFirestore,
@@ -36,6 +38,30 @@ const analytics = getAnalytics(app);
 const auth = getAuth(app);
 const db = getFirestore(app);
 
+// Initialize Google Auth Provider
+const googleProvider = new GoogleAuthProvider();
+googleProvider.setCustomParameters({
+  prompt: "select_account",
+});
+
+// Shared function to initialize user data
+async function initializeUserData(user) {
+  console.log("Initializing user data for:", user.email);
+  const userRef = doc(db, "users", user.uid);
+  const userDoc = await getDoc(userRef);
+
+  if (!userDoc.exists()) {
+    console.log("Creating new user document");
+    await setDoc(userRef, {
+      email: user.email,
+      highestScore: 0,
+    });
+  } else {
+    console.log("User document exists:", userDoc.data());
+  }
+  return userDoc;
+}
+
 export {
   auth,
   db,
@@ -46,4 +72,7 @@ export {
   setDoc,
   updateDoc,
   getDoc,
+  googleProvider,
+  signInWithPopup,
+  initializeUserData,
 };
