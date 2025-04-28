@@ -16,15 +16,22 @@
     <meta http-equiv="cache-control" content="no-cache" />
     <meta http-equiv="expires" content="0" />
     <meta http-equiv="pragma" content="no-cache" />
-    <script src="index.js"></script>
+    <script type="module" src="index.js"></script>
   </head>
 
   <body>
     <header>
-      <h1>Candy Crush</h1>
+      <div class="title">
+        <h1>Candy Crush</h1>
+      </div>
       <div class="scores">
-        <h2>Score: <span id="score">0</span></h2>
-        <h2>Highest Score: <span id="highestScore">0</span></h2>
+        <div class="score-item">
+          <h2>Score: <span id="score">0</span></h2>
+        </div>
+        <div class="score-item">
+          <h2>Highest Score: <span id="highestScore">0</span></h2>
+        </div>
+        <button id="logoutBtn">Logout</button>
       </div>
     </header>
 
