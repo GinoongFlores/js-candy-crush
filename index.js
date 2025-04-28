@@ -32,7 +32,7 @@ window.onload = async function () {
 
     // Initialize user data using shared function
     const userDoc = await initializeUserData(user);
-    console.log("User data initialized in game:", userDoc.data());
+    // console.log("User data initialized in game:", userDoc.data());
 
     startGame();
 
