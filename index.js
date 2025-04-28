@@ -1,3 +1,13 @@
+import {
+  auth,
+  db,
+  doc,
+  setDoc,
+  updateDoc,
+  getDoc,
+  signOut,
+} from "./firebase-config.js";
+
 const candies = ["Blue", "Orange", "Green", "Yellow", "Red", "Purple"];
 const board = [];
 const rows = 9;
@@ -11,15 +21,40 @@ const audioElement = new Audio("./audio/candy-crush-sound-effect.mp3");
 audioElement.loop = true;
 audioElement.volume = 0.3;
 
-window.onload = function () {
-  startGame();
+window.onload = async function () {
+  // Check authentication
+  auth.onAuthStateChanged(async (user) => {
+    if (!user) {
+      window.location.href = "login.html";
+      return;
+    }
 
-  window.setInterval(function () {
-    crushCandy(); // crush candies in 3 x 3 move
-    slideCandy(); // slide candies down
-    generateCandy(); // generate new candies
-    highestScore(); // display the highest score
-  }, 100);
+    // Initialize user's score document if it doesn't exist
+    const userRef = doc(db, "users", user.uid);
+    const userDoc = await getDoc(userRef);
+
+    if (!userDoc.exists()) {
+      await setDoc(userRef, {
+        email: user.email,
+        highestScore: 0,
+      });
+    }
+
+    startGame();
+
+    // Setup logout button
+    document.getElementById("logoutBtn").addEventListener("click", async () => {
+      await signOut(auth);
+      window.location.href = "login.html";
+    });
+
+    window.setInterval(function () {
+      crushCandy();
+      slideCandy();
+      generateCandy();
+      highestScore();
+    }, 100);
+  });
 };
 
 function randomCandy() {
@@ -174,14 +209,23 @@ function crushThree() {
   }
 }
 
-function highestScore() {
-  let highestScore = localStorage.getItem("highestScore");
+// Modify highestScore function to use Firestore
+async function highestScore() {
+  const user = auth.currentUser;
+  if (!user) return;
 
-  if (highestScore === null || score > highestScore) {
+  const userRef = doc(db, "users", user.uid);
+  const userDoc = await getDoc(userRef);
+  const userData = userDoc.data();
+  let highestScore = userData.highestScore;
+
+  if (score > highestScore) {
     highestScore = score;
-    localStorage.setItem("highestScore", highestScore);
+    await updateDoc(userRef, {
+      highestScore: highestScore,
+    });
   }
-  // Display the highest score
+
   document.getElementById("highestScore").innerText = highestScore;
 }
 
