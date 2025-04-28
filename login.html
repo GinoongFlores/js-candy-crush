@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Candy Crush - Login</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="login.css" />
+    <link rel="icon" href="images/Choco.png" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="auth-container">
+      <img
+        src="images/Red.png"
+        class="candy-decoration candy-1"
+        style="--rotation: -45deg"
+      />
+      <img
+        src="images/Blue.png"
+        class="candy-decoration candy-2"
+        style="--rotation: 45deg"
+      />
+      <img
+        src="images/Green.png"
+        class="candy-decoration candy-3"
+        style="--rotation: -135deg"
+      />
+      <img
+        src="images/Yellow.png"
+        class="candy-decoration candy-4"
+        style="--rotation: 135deg"
+      />
+
+      <div class="auth-header">
+        <h1>Candy Crush</h1>
+      </div>
+
+      <!-- Login Form -->
+      <div id="loginForm" style="display: block">
+        <div id="loginError" class="error-message"></div>
+        <form onsubmit="return false;">
+          <div class="form-group">
+            <label for="loginEmail">Email</label>
+            <input
+              type="email"
+              id="loginEmail"
+              required
+              placeholder="Enter your email"
+            />
+          </div>
+          <div class="form-group">
+            <label for="loginPassword">Password</label>
+            <input
+              type="password"
+              id="loginPassword"
+              required
+              placeholder="Enter your password"
+            />
+          </div>
+          <button type="submit" class="btn" onclick="login()">
+            Login to Play
+          </button>
+        </form>
+        <div class="form-toggle">
+          New to Candy Crush?
+          <span onclick="toggleForms()">Create Account</span>
+        </div>
+      </div>
+
+      <!-- Registration Form -->
+      <div id="registerForm" style="display: none">
+        <div id="registerError" class="error-message"></div>
+        <div id="registerSuccess" class="success-message"></div>
+        <form onsubmit="return false;">
+          <div class="form-group">
+            <label for="registerEmail">Email</label>
+            <input
+              type="email"
+              id="registerEmail"
+              required
+              placeholder="Enter your email"
+            />
+          </div>
+          <div class="form-group">
+            <label for="registerPassword">Password</label>
+            <input
+              type="password"
+              id="registerPassword"
+              required
+              placeholder="Create a password"
+            />
+            <div class="password-requirements">
+              • Password must be at least 6 characters long
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="confirmPassword">Confirm Password</label>
+            <input
+              type="password"
+              id="confirmPassword"
+              required
+              placeholder="Confirm your password"
+            />
+          </div>
+          <button type="submit" class="btn" onclick="register()">
+            Create Account
+          </button>
+        </form>
+        <div class="form-toggle">
+          Already have an account?
+          <span onclick="toggleForms()">Login here</span>
+        </div>
+      </div>
+    </div>
+    <script type="module" src="login.js"></script>
+  </body>
+</html>
