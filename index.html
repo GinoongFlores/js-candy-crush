@@ -1,39 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> Candy Crush</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="icon" href="images/Choco.png">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Candy Crush</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="icon" href="images/Choco.png" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
 
     <!-- disable browsing features -->
-    <meta http-equiv="cache-control" content="no-cache">
-    <meta http-equiv="expires" content="0">
-    <meta http-equiv="pragma" content="no-cache">
+    <meta http-equiv="cache-control" content="no-cache" />
+    <meta http-equiv="expires" content="0" />
+    <meta http-equiv="pragma" content="no-cache" />
     <script src="index.js"></script>
-</head>
+  </head>
 
-<body>
-    <h1>Score: <span id="score">0</span></h1>
-    <h1>Highest score: <span id="highestScore">0</span></h1>
+  <body>
+    <header>
+      <h1>Candy Crush</h1>
+      <div class="scores">
+        <h2>Score: <span id="score">0</span></h2>
+        <h2>Highest Score: <span id="highestScore">0</span></h2>
+      </div>
+    </header>
+
     <div id="container">
-        <div id="instructions">
-            <img src="images/scroll.png" alt="instructions" class="scroll">
-            <div class="content">
-                <h2>Game objectives</h2>
-                <p>Swap one candy with another candy on a horizontally or vertically adjacent cell to form a chain of
-                    three or more candies of the same color.</p>
-                <h3>
-                    Beat your highest Score as many as you can!
-                </h3>
-            </div>
+      <div id="instructions">
+        <div class="content">
+          <h2>Game Objectives</h2>
+          <p>
+            Swap one candy with another candy on a horizontally or vertically
+            adjacent cell to form a chain of three or more candies of the same
+            color.
+          </p>
+          <h3>Beat your highest score as many times as you can!</h3>
         </div>
-        <div id="board">
-        </div>
+      </div>
+      <div id="board"></div>
     </div>
-</body>
 
+    <footer>
+      <p>Created with ❤️ | Candy Crush Clone</p>
+    </footer>
+  </body>
 </html>
