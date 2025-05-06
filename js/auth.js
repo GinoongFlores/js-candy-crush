@@ -1,4 +1,5 @@
-// Import necessary Firebase authentication functions
+// Import Firebase authentication and Firestore functions
+// These functions allow us to handle user login, registration, and Google Sign-In
 import {
   auth,
   signInWithEmailAndPassword,
@@ -8,7 +9,10 @@ import {
   initializeUserData,
 } from "./firebase-config.js";
 
-// Helper function to show error messages
+// Helper function to display error or success messages
+// 'elementId' is the ID of the HTML element where the message will be shown
+// 'message' is the text to display
+// 'isError' determines if the message is an error (default is true)
 function showMessage(elementId, message, isError = true) {
   const element = document.getElementById(elementId);
   element.textContent = message;
@@ -22,7 +26,11 @@ function showMessage(elementId, message, isError = true) {
   }
 }
 
-// Handle user login
+// Function to handle user login
+// Retrieves email and password from input fields
+// Uses Firebase Authentication to sign in the user
+// Redirects to 'index.html' on successful login
+// Displays error message if login fails
 window.login = async function () {
   const email = document.getElementById("loginEmail").value;
   const password = document.getElementById("loginPassword").value;
@@ -45,7 +53,11 @@ window.login = async function () {
   }
 };
 
-// Handle Google Sign In
+// Function to handle Google Sign-In
+// Uses Firebase Authentication to sign in the user with Google
+// Calls 'initializeUserData' to ensure user data is set up in Firestore
+// Redirects to 'index.html' on successful login
+// Displays error message if sign-in fails
 window.signInWithGoogle = async function () {
   try {
     const result = await signInWithPopup(auth, googleProvider);
@@ -59,7 +71,13 @@ window.signInWithGoogle = async function () {
   }
 };
 
-// Handle user registration
+// Function to handle user registration
+// Retrieves email, password, and confirm password from input fields
+// Validates password length and matching
+// Uses Firebase Authentication to create a new user
+// Calls 'initializeUserData' to set up user data in Firestore
+// Displays success message and redirects to 'index.html' on successful registration
+// Displays error message if registration fails
 window.register = async function () {
   const email = document.getElementById("registerEmail").value;
   const password = document.getElementById("registerPassword").value;
@@ -102,7 +120,9 @@ window.register = async function () {
   }
 };
 
-// Toggle between login and registration forms
+// Function to toggle between login and registration forms
+// Clears input fields and error/success messages
+// Switches the visibility of the login and registration forms
 window.toggleForms = function () {
   const loginForm = document.getElementById("loginForm");
   const registerForm = document.getElementById("registerForm");
