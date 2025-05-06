@@ -4,8 +4,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Candy Crush - Login</title>
-    <link rel="stylesheet" href="style.css" />
-    <link rel="stylesheet" href="login.css" />
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/login.css" />
     <link rel="icon" href="images/Choco.png" />
     <link
       href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap"
@@ -97,6 +97,15 @@
         <div id="registerSuccess" class="success-message"></div>
         <form onsubmit="return false;">
           <div class="form-group">
+            <label for="loginUsername">Username</label>
+            <input
+              type="text"
+              id="loginUsername"
+              required
+              placeholder="Enter your username"
+            />
+          </div>
+          <div class="form-group">
             <label for="registerEmail">Email</label>
             <input
               type="email"
@@ -136,6 +145,6 @@
         </div>
       </div>
     </div>
-    <script type="module" src="login.js"></script>
+    <script type="module" src="/js/login.js"></script>
   </body>
 </html>

@@ -1,5 +1,5 @@
 body {
-  background: url("background.jpg") center/cover fixed;
+  background: url("/images/background.jpg") center/cover fixed;
   position: relative;
   font-family: "Arial Rounded MT Bold", "Helvetica Rounded", Arial, sans-serif;
   text-align: center;

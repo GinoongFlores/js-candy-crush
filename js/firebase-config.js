@@ -46,7 +46,7 @@ googleProvider.setCustomParameters({
 
 // Shared function to initialize user data
 async function initializeUserData(user) {
-  //   console.log("Initializing user data for:", user.email);
+  console.log("Initializing user data for:", user.email);
   const userRef = doc(db, "users", user.uid);
   const userDoc = await getDoc(userRef);
 
@@ -57,7 +57,7 @@ async function initializeUserData(user) {
       highestScore: 0,
     });
   } else {
-    // console.log("User document exists:", userDoc.data());
+    console.log("User document exists:", userDoc.data());
   }
   return userDoc;
 }
